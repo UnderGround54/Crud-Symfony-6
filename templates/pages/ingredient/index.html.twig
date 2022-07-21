@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ingredient {% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Mes Ingrediénts</h1>
+        <div class="count">
+            {{ ingredients.getTotalItemCount }} Ingrediénts
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ID</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Prix</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Date Creation</font></font></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ingredient in ingredients %}
+                <tr class="table-active">
+                    <th scope="row"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ingredient.id }}</font></font></th>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ingredient.nom }}</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ingredient.prix }}</font></font></td>
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ ingredient.getDateCreation()|date('d/m/Y') }}</font></font></td>
+                </tr>
+            {% endfor %}  
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(ingredients) }}
+        </div>
+    </div>
+{% endblock %}
