@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="container mt-4">
+    {% if not ingredients.items is same as([]) %}
         <h1>Mes Ingrediénts</h1>
+
         <div class="count">
             {{ ingredients.getTotalItemCount }} Ingrediénts
         </div>
@@ -30,6 +32,19 @@
         </table>
         <div class="navigation">
             {{ knp_pagination_render(ingredients) }}
-        </div>
+        </div
+        {% else %}
+            <h4>Il faut ajouter des ingrédients</h4>
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ID</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Prix</font></font></th>
+                <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Date Creation</font></font></th>
+                </tr>
+            </thead>
+        </table>
+        {% endif %}
     </div>
 {% endblock %}

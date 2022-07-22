@@ -11,7 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IngredientController extends AbstractController
 {
-    #[Route('/', name: 'app_ingredient')]
+    /**
+     * Undocumented function
+     *
+     * @param IngredientRepository $repository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
+    #[Route('/', name: 'app_ingredient', methods: ['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {       
         $ingredient = $paginator->paginate(
@@ -22,5 +30,11 @@ class IngredientController extends AbstractController
         return $this->render('pages/ingredient/index.html.twig', [
             'ingredients' => $ingredient,
         ]);
+    }
+
+    #[Route('ingredient/nouveau',name: 'ingredient.new', methods:['GET','POST'])]
+    public function new() : Response
+    {
+        return $this->render('pages/ingredient/new.html.twig');
     }
 }
