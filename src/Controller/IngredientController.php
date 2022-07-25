@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Ingredient;
+use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +22,7 @@ class IngredientController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/', name: 'app_ingredient', methods: ['GET'])]
+    #[Route('/', name: 'ingredient.list', methods: ['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {       
         $ingredient = $paginator->paginate(
@@ -33,8 +36,26 @@ class IngredientController extends AbstractController
     }
 
     #[Route('ingredient/nouveau',name: 'ingredient.new', methods:['GET','POST'])]
-    public function new() : Response
+    public function new(Request $request, EntityManagerInterface $manager) : Response
     {
-        return $this->render('pages/ingredient/new.html.twig');
+        $ingredient = new Ingredient();
+        $form = $this->createForm(IngredientType::class, $ingredient);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $ingredient = $form->getData();
+            $manager->persist($ingredient); //comme commit enregister dans une local storage
+            $manager->flush(); //push les données dans une localstorage
+
+            $this->addFlash(
+                'Succes',
+                'Votre ingrédient à été créer avec succes !'
+            );
+
+            return $this->redirectToRoute('ingredient.list'); // ingredient is the name of route / index
+        }
+        return $this->render('pages/ingredient/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
