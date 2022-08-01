@@ -56,6 +56,7 @@
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom</font></font></th>
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Prix</font></font></th>
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Description</font></font></th>
+                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Favorie</font></font></th>
                     <th scope="col" class="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Edition</font></font></th>
                     <th scope="col" class="center">Suppresion</th>
                 </tr>
@@ -68,16 +69,16 @@
                     <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{(recipe.prix is same as(null))? 'Non rensegné' : recipe.prix}}</font></font></td>
                     <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ recipe.description|slice(0, 20) ~ ' ...'}}</font></font></td>
                     {# <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ recipe.time }}</font></font></td> #}
-                    {# <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ recipe.isFavorie }}</font></font></td> #}
+                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{recipe.isFavorie }}</font></font></td>
                     
                     {# <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ recipe.getDateCreation()|date('d/m/Y') }}</font></font></td>   #}
                     
-                    {# <td>
+                    <td>
                         <a href="{{ path('recipe.update', {'id' : recipe.id}) }}" class="btn btn-secondary">Editer</a>
                     </td>
                     <td>
                         <a href="{{ path('recipe.delete', {'id' : recipe.id}) }}" class="btn btn-primary">Supprimer</a>
-                    </td> #}
+                    </td>
                 </tr>
             {% endfor %}  
             </tbody>

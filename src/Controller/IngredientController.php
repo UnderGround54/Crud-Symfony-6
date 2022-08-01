@@ -67,7 +67,7 @@ class IngredientController extends AbstractController
     }
 
     /**
-     * 
+     * Update Ingredient
      */
     #[Route('ingredient/edition/{id}', name: 'ingredient.update', methods: ['GET','POST'])]
     public function update(Ingredient $ingredient, Request $request, EntityManagerInterface $manager) : Response
@@ -91,7 +91,9 @@ class IngredientController extends AbstractController
            'form' => $form->createView(),
         ]);
     }
-
+    /**
+     * Delete Ingredient
+     */
     #[Route('ingredient/suppression/{id}', name: 'ingredient.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredient $ingredient) : Response
     {

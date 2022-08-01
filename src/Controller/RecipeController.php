@@ -52,11 +52,61 @@ class RecipeController extends AbstractController
                 'Votre recette à été créer avec succes !'
             );
 
-            return $this->redirectToRoute('recipe.list'); // ingredient is the name of route / index
+            return $this->redirectToRoute('recipe.list'); // recipe is the name of route / index
         }
         return $this->render('pages/recipe/new.html.twig', [
             'form' => $form->createView(),
         ]);
 
     }
+    /**
+     * update recette
+     */
+    #[Route('recipe/edition/{id}', name: 'recipe.update', methods: ['GET','POST'])]
+    public function update(Recipe $recipe, Request $request, EntityManagerInterface $manager) : Response
+    {
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $recipe = $form->getData();
+            $manager->persist($recipe); //comme commit enregister dans une local storage
+            $manager->flush(); //push les données dans une localstorage
+
+            $this->addFlash(
+                'Succes',
+                'Votre recette à été modifié avec succes !'
+            );
+
+            return $this->redirectToRoute('recipe.list'); // recette is the name of route / index
+        }
+        return $this->render('pages/recipe/update.html.twig', [
+           'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * Delete recette
+     */
+    #[Route('recipe/suppression/{id}', name: 'recipe.delete', methods: ['GET'])]
+    public function delete(EntityManagerInterface $manager, Recipe $recipe) : Response
+    {
+        if(!$recipe)
+        {
+            $this->addFlash(
+                'Warning',
+                'Recette n\'a pas été trouvé'
+            );
+            return $this->redirectToRoute('recipe.list'); // recipe is the name of route / index
+        }
+
+        $manager->remove($recipe);
+        $manager->flush();
+
+        $this->addFlash(
+            'Succes',
+            'Votre recette à été supprimer avec succes !'
+        );
+        return $this->redirectToRoute('recipe.list'); // recipe is the name of route / index
+    }
+
 }
