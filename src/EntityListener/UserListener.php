@@ -18,11 +18,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
         $this->encodePassword($user);
     }
 
-    public function preUpdate(User $user)
-    {
-        $this->encodePassword($user);
-    }
-
     /**
      * hash password
      *
