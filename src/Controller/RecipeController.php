@@ -7,6 +7,8 @@ use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +24,8 @@ class RecipeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/recipe', name: 'recipe.list', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    #[Route('/recette', name: 'recipe.list', methods: ['GET'])]
     public function index(RecipeRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $recipe = $paginator->paginate(
@@ -30,11 +33,12 @@ class RecipeController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-        return $this->render('pages/recipe/index.html.twig', [
+        return $this->render('pages/recette/index.html.twig', [
             'recipes' => $recipe,
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/nouveau/recette', name:'recipe.new', methods: ['GET','POST'])]
     public function new(EntityManagerInterface $manager, Request $request) : Response
     {
@@ -56,7 +60,7 @@ class RecipeController extends AbstractController
 
             return $this->redirectToRoute('recipe.list'); // recipe is the name of route / index
         }
-        return $this->render('pages/recipe/new.html.twig', [
+        return $this->render('pages/recette/new.html.twig', [
             'form' => $form->createView(),
         ]);
 
@@ -64,7 +68,8 @@ class RecipeController extends AbstractController
     /**
      * update recette
      */
-    #[Route('recipe/edition/{id}', name: 'recipe.update', methods: ['GET','POST'])]
+    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
+    #[Route('recette/edition/{id}', name: 'recipe.update', methods: ['GET','POST'])]
     public function update(Recipe $recipe, Request $request, EntityManagerInterface $manager) : Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
@@ -82,14 +87,15 @@ class RecipeController extends AbstractController
 
             return $this->redirectToRoute('recipe.list'); // recette is the name of route / index
         }
-        return $this->render('pages/recipe/update.html.twig', [
+        return $this->render('pages/recette/update.html.twig', [
            'form' => $form->createView(),
         ]);
     }
     /**
      * Delete recette
      */
-    #[Route('recipe/suppression/{id}', name: 'recipe.delete', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
+    #[Route('recette/suppression/{id}', name: 'recipe.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Recipe $recipe) : Response
     {
         if(!$recipe)

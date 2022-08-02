@@ -11,6 +11,11 @@
 <div class="example-wrapper">
     <h1><i class="fa fa-dashboard"></i> Bienvenue sur la dashboard</h1>
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
-    <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
+    {% if app.user %}
+        <a href="{{ path('login.deconnexion') }}" class="btn btn-primary">Se deconnecter</a>
+    {% else %}
+        <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
+    {% endif %}
+    
 </div>
 {% endblock %}

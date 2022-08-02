@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,29 +18,31 @@ class UserController extends AbstractController
     /**
      * Edit information user
      *
-     * @param User $user
+     * @param User $users
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserPasswordHasherInterface $hash
      * @return Response
      */
+    #[Security("is_granted('ROLE_USER') and user === users")]
     #[Route('/utilisateur/edition/{id}', name: 'user.update', methods:['GET','POST'])]
-    public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hash): Response
+    public function edit(User $users, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hash): Response
     {
-        if(!$this->getUser()){
-            return $this->redirectToRoute('login.connexion');
-        }
-        if($this->getUser() !== $user) {
-             return $this->redirectToRoute('recipe.list');
-        }
+        /////// isGranted et Security //////
+        // if(!$this->getUser()){
+        //     return $this->redirectToRoute('login.connexion');
+        // }
+        // if($this->getUser() !== $users) {
+        //      return $this->redirectToRoute('recipe.list');
+        // }
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $users);
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
-            if ($hash->isPasswordValid($user,  $form->getData()->getPlainPassword())) {
-                $user = $form->getData();
-                $manager->persist($user); //comme commit enregister dans une local storage
+            if ($hash->isPasswordValid($users,  $form->getData()->getPlainPassword())) {
+                $userform = $form->getData();
+                $manager->persist($userform); //comme commit enregister dans une local storage
                 $manager->flush(); //push les données dans une localstorage
 
                 $this->addFlash(
@@ -61,26 +64,27 @@ class UserController extends AbstractController
     }
 
     /**
-     * Edit password user
+     * Edit password users
      *
-     * @param User $user
+     * @param User $users
      * @param Request $request
      * @param UserPasswordHasherInterface $hash
      * @param EntityManagerInterface $manager
      * @return Response
      */
+    #[Security("is_granted('ROLE_USER') and user === users")]
     #[Route('/utilisateur/edition_password/{id}', name:'password.update', methods:['GET','POST'])]
-    public function updatePassword(User $user, Request $request, UserPasswordHasherInterface $hash, EntityManagerInterface $manager) :Response
+    public function updatePassword(User $users, Request $request, UserPasswordHasherInterface $hash, EntityManagerInterface $manager) :Response
     {
         $form = $this->createForm(UserPasswordType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             // dd($form->getData());
-            if($hash->isPasswordValid($user, $form->getData()['plainPassword'])){
-                $user->setDateUpdate(new \DateTimeImmutable());
-                $user->setPlainPassword($form->getData()['newPassword']);
+            if($hash->isPasswordValid($users, $form->getData()['plainPassword'])){
+                $users->setDateUpdate(new \DateTimeImmutable());
+                $users->setPlainPassword($form->getData()['newPassword']);
 
-                $manager->persist($user); //comme commit enregister dans une local storage
+                $manager->persist($users); //comme commit enregister dans une local storage
                 $manager->flush(); //push les données dans une localstorage vers BD
 
                 $this->addFlash(
