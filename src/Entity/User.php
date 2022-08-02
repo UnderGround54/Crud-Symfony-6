@@ -51,9 +51,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?\DateTimeInterface $dateCreation = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull()]
+    private ?\DateTimeInterface $dateUpdate;
+
     public function __construct()
     {
         $this->dateCreation = new \DateTimeImmutable();
+        $this->dateUpdate = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -178,6 +183,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateUpdate(): ?\DateTimeInterface
+    {
+        return $this->dateUpdate;
+    }
+
+    public function setDateUpdate(\DateTimeInterface $dateUpdate): self
+    {
+        $this->dateUpdate = $dateUpdate;
 
         return $this;
     }

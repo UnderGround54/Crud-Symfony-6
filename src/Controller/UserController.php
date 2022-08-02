@@ -15,7 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * edit User
+     * Edit information user
+     *
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordHasherInterface $hash
+     * @return Response
      */
     #[Route('/utilisateur/edition/{id}', name: 'user.update', methods:['GET','POST'])]
     public function edit(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hash): Response
@@ -54,6 +60,15 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * Edit password user
+     *
+     * @param User $user
+     * @param Request $request
+     * @param UserPasswordHasherInterface $hash
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/utilisateur/edition_password/{id}', name:'password.update', methods:['GET','POST'])]
     public function updatePassword(User $user, Request $request, UserPasswordHasherInterface $hash, EntityManagerInterface $manager) :Response
     {
@@ -62,7 +77,8 @@ class UserController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             // dd($form->getData());
             if($hash->isPasswordValid($user, $form->getData()['plainPassword'])){
-                $user->setPassword($hash->hashPassword($user, $form->getData()['newPassword']));
+                $user->setDateUpdate(new \DateTimeImmutable());
+                $user->setPlainPassword($form->getData()['newPassword']);
 
                 $manager->persist($user); //comme commit enregister dans une local storage
                 $manager->flush(); //push les données dans une localstorage vers BD
