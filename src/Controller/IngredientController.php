@@ -22,11 +22,11 @@ class IngredientController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/', name: 'ingredient.list', methods: ['GET'])]
+    #[Route('/ingredient', name: 'ingredient.list', methods: ['GET'])]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {       
         $ingredient = $paginator->paginate(
-            $repository->findAll(), /* query NOT result */
+            $repository->findBy(['user' => $this->getUser()]), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
@@ -51,6 +51,8 @@ class IngredientController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $ingredient = $form->getData();
+            $ingredient->setUser($this->getUser());
+
             $manager->persist($ingredient); //comme commit enregister dans une local storage
             $manager->flush(); //push les données dans une localstorage
 

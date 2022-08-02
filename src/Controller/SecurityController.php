@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/inscription', name: 'inscription.page', methods: ['GET','POST'])]
+    #[Route('/inscription', name: 'login.inscription', methods: ['GET','POST'])]
     public function registration(Request $request, EntityManagerInterface $manager): Response
     {
         $user = New User();
@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
     #[Route('/deconnexion', name: 'login.deconnexion')]
     public function logout()
     {
-
+        
     }
 
 }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ingredient {% endblock %}
+{% block title %} Recettes | Ingrédients {% endblock %}
 
 {% block body %}
     <div class="container mt-4">
+    <a href="{{ path('ingredient.new') }}" class="btn btn-primary">Créer un ingrédient</a>
     {% if not ingredients.items is same as([]) %}
-        <a href="{{ path('ingredient.new') }}" class="btn btn-primary">Créer un ingrédient</a>
         <h1>Mes Ingrediénts</h1>
 
         <div class="count">

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes | Home {% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1><i class="fa fa-dashboard"></i> Bienvenue sur la dashboard</h1>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
+    <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
+</div>
+{% endblock %}

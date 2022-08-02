@@ -16,17 +16,32 @@ class AppFixtures extends Fixture
     {
 
         $faker = Factory::create("fr_FR");
-        // Ingredients
+
+        // Create fake users
+        $users = [];
+        for ($l=0; $l < 10; $l++) { 
+            $user = new User();
+            $user->setNom($faker->name())
+                ->setPseudo(mt_rand(0,1) === 1 ? $faker->firstName(): null)
+                ->setEmail($faker->email())
+                ->setRoles(['ROLE_USER'])
+                ->setPlainPassword('password');
+
+            $users[] = $user;
+            $manager->persist($user);
+        }
+        // Create fake Ingredients
         $ingredients = [];
         for ($i=1; $i <= 40; $i++) { 
             $ingredient = new Ingredient();
             $ingredient->setNom('Ingredient #'.$i)
+                    ->setUser($users[mt_rand(0, count($users)-1)])
                     ->setPrix(mt_rand(1, 100));
             $ingredients[] = $ingredient;        
             $manager->persist($ingredient);
         }
         
-        // Recipies
+        // Create fake Recipies
         for ($j=0; $j < 30; $j++) { 
             $recipe = new Recipe();
             $recipe->setNom($faker->word())
@@ -35,6 +50,7 @@ class AppFixtures extends Fixture
                     ->setDifficulty(mt_rand(0,1) == 1 ? mt_rand(1,5) : null)
                     ->setDescription($faker->text(300))
                     ->setPrix(mt_rand(0,1) == 1 ? mt_rand(1,1000) : null)
+                    ->setUser($users[mt_rand(0, count($users)-1)])
                     ->setIsFavorie(mt_rand(0,1) == 1 ? true : false);
                     // la date de création est déja créer par la constructeur
             for ($k=0; $k <mt_rand(5,15); $k++) { 
@@ -42,17 +58,7 @@ class AppFixtures extends Fixture
             }
             $manager->persist($recipe);
         }
-
-        // users
-        for ($l=0; $l < 10; $l++) { 
-            $user = new User();
-            $user->setNom($faker->name())
-                ->setPseudo(mt_rand(0,1) === 1 ? $faker->firstName(): null)
-                ->setEmail($faker->email())
-                ->setRoles(['ROLE_USER'])
-                ->setPlainPassword('password');
-            $manager->persist($user);
-        }
+        // create fake relation
         $manager->flush();
     }
 }
