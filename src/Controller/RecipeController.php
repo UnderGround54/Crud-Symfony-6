@@ -38,6 +38,21 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Voir un recette
+     *
+     * @param Recipe $recipe
+     * @return Response
+     */
+    #[Security("is_granted('ROLE_USER') and recipe.getIsPublic() === true")]
+    #[Route('/recette/{id}', name:'recipe.show', methods: ['GET'])]
+    public function show(Recipe $recipe): Response
+    {
+        return $this->render('pages/recette/show.html.twig', [
+            'recipe' => $recipe,
+        ]);
+    }
+
     #[IsGranted('ROLE_USER')]
     #[Route('/nouveau/recette', name:'recipe.new', methods: ['GET','POST'])]
     public function new(EntityManagerInterface $manager, Request $request) : Response
