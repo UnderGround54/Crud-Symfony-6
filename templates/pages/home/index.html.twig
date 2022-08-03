@@ -8,14 +8,32 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1><i class="fa fa-dashboard"></i> Bienvenue sur la dashboard</h1>
+<div class="container">
+    <h1><i class="fa-light fa-house-user"></i> Bienvenue sur la dashboard</h1>
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
     {% if app.user %}
         <a href="{{ path('login.deconnexion') }}" class="btn btn-primary">Se deconnecter</a>
     {% else %}
         <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
     {% endif %}
-    
+
+    <h4><i class="fa-light fa-pot-food"></i> Recette de la communauté </h4>
+    <div class="d-flex justify-content-between">
+        {% for recipe in recipes %}
+        <a href="{{ path('recipe.show',{'id': recipe.id}) }}" style="text-decoration:none;">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Recette n° {{ recipe.id }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ recipe.nom }}</h4>
+                        <p class="card-text">{{ recipe.description|slice(0, 40) ~ ' ...' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

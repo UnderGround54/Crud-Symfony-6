@@ -38,6 +38,19 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/recette/publique', name: 'recipe.pubic', methods: ['GET'])]
+    public function recettePublic(PaginatorInterface $paginator, RecipeRepository $repository, Request $request) : Response
+    {
+        $recipes = $paginator->paginate(
+            $repository->findBublicRecipe(null),
+            $request->query->getInt('page', 1),
+            10
+        );
+        return $this->render('pages/recette/recette_public.html.twig',[
+            'recipes' => $recipes,
+        ]);
+    }
+
     /**
      * Voir un recette
      *

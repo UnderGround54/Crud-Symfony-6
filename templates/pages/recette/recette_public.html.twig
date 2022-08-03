@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Recettes | Recettes Publique {% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+    {# <a href="{{ path('recipe.new') }}" class="btn btn-primary">Créer une recettes</a> #}
+    {% if not recipes.items is same as([]) %}
+        <h1>Recettes de la communauté</h1>
+        <div class="d-flex justify-content-center flex-wrap">
+        {% for recipe in recipes %}
+        <a href="{{ path('recipe.show',{'id': recipe.id}) }}" style="text-decoration:none;">
+        <div class="row">
+            <div class="col-sm-11">
+                <div class="card border-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Recette n° {{ recipe.id }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ recipe.nom }}</h4>
+                        <p class="card-text">{{ recipe.description|slice(0, 40) ~ ' ...' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        </div>
+        {% else %}
+            <h4>Il n'y pas des recettes publique disponible</h4>
+        {% endif %}
+    </div>
+{% endblock %}

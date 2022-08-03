@@ -38,4 +38,26 @@ class RecipeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Recuperer les recette public base sur le nombre de recipe
+     *
+     * @param integer $nbRecipes
+     * @return array
+     */
+    public function findBublicRecipe(?int $nbRecipes) : array
+    {
+        $queryBuilder =  $this->createQueryBuilder('r')
+                    ->where('r.isPublic = 1')
+                    ->orderBy('r.dateCreation', 'DESC');
+
+        if($nbRecipes !== 0 || $nbRecipes !== null)
+        {
+            $queryBuilder->setMaxResults($nbRecipes);
+        }
+
+        return $queryBuilder->getQuery()
+                             ->getResult();
+                    
+    }
 }
