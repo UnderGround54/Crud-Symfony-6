@@ -17,7 +17,7 @@
         <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
     {% endif %}
 
-    <h4><i class="fa-light fa-pot-food"></i> Recette de la communauté </h4>
+    <h4><i class="fa-light fa-pot-food"></i>Les trois dernière recette de la communauté </h4>
     <div class="d-flex justify-content-between">
         {% for recipe in recipes %}
         <a href="{{ path('recipe.show',{'id': recipe.id}) }}" style="text-decoration:none;">
@@ -35,5 +35,6 @@
         </a>
         {% endfor %}
     </div>
+    <a href="{{ path('recipe.public') }}" class="btn btn-primary">Toutes les recettes publique</a>
 </div>
 {% endblock %}

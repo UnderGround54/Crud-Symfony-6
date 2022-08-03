@@ -41,7 +41,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recette/publique', name: 'recipe.pubic', methods: ['GET'])]
+    #[Route('/recette/publique', name: 'recipe.public', methods: ['GET'])]
     public function recettePublic(PaginatorInterface $paginator, RecipeRepository $repository, Request $request) : Response
     {
         $recipes = $paginator->paginate(
@@ -101,6 +101,13 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    /**
+     * Ajout recette
+     *
+     * @param EntityManagerInterface $manager
+     * @param Request $request
+     * @return Response
+     */
     #[IsGranted('ROLE_USER')]
     #[Route('/nouveau/recette', name:'recipe.new', methods: ['GET','POST'])]
     public function new(EntityManagerInterface $manager, Request $request) : Response
