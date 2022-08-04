@@ -9,14 +9,30 @@
 </style>
 
 <div class="container">
-    <h1><i class="fa-light fa-house-user"></i> Bienvenue sur la dashboard</h1>
-    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
-    {% if app.user %}
-        <a href="{{ path('login.deconnexion') }}" class="btn btn-primary"><i class="bi bi-door-open"></i> Se deconnecter</a>
-    {% else %}
-        <a href="{{ path('login.inscription') }}" class="btn btn-primary"><i class="bi bi-person-workspace"></i> S'inscrir</a>
-    {% endif %}
+    
 
+    <div class="row justify-content-evenly">
+        <div class="col-9">
+            <h1><i class="fa-light fa-house-user"></i> Bienvenue sur la dashboard</h1>
+            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
+            {% if app.user %}
+                <a href="{{ path('login.deconnexion') }}" class="btn btn-primary"><i class="bi bi-door-open"></i> Se deconnecter</a>
+            {% else %}
+                <a href="{{ path('login.inscription') }}" class="btn btn-primary"><i class="bi bi-person-workspace"></i> S'inscrir</a>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <lottie-player
+                autoplay
+                loop
+                speed="0.5"
+                mode="normal"
+                src="https://assets4.lottiefiles.com/packages/lf20_pkghem0h.json"
+                style="width: 300px"
+                >
+            </lottie-player>
+        </div>
+    </div>
     <h4><i class="fa-light fa-pot-food"></i>Les trois dernière recette de la communauté </h4>
     <div class="d-flex justify-content-between">
         {% for recipe in recipes %}
@@ -35,6 +51,6 @@
         </a>
         {% endfor %}
     </div>
-    <a href="{{ path('recipe.public') }}" class="btn btn-primary">Toutes les recettes publique</a>
+    <a href="{{ path('recipe.public') }}" class="btn btn-primary mb-5"><i class="bi bi-receipt"></i> Toutes les recettes publique</a>
 </div>
 {% endblock %}

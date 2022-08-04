@@ -6,7 +6,23 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mt-4">Formulaire d'inscription</h1>
-        {{ form(form)}}
+        <div class="row">
+            <div class="col-6 pb-5 mb-5">
+                <lottie-player
+                autoplay
+                loop
+                speed="0.5"
+                mode="normal"
+                src="https://assets10.lottiefiles.com/packages/lf20_ghs9bkkc.json"
+                style="width: 500px"
+                >
+                </lottie-player>
+            </div>
+            <div class="col-6 mb-5">
+                <h1 class="mt-4">S'inscrire</h1>
+                {{ form(form)}}
+        
+            </div>
+        </div>
     </div>
 {% endblock %}
