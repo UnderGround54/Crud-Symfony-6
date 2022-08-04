@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-4">
-    <a href="{{ path('recipe.new') }}" class="btn btn-primary">Créer une recettes</a>
+    <a href="{{ path('recipe.new') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Créer une recettes</a>
     {% if not recipes.items is same as([]) %}
         <h1>Mes Recettes</h1>
 
@@ -59,6 +59,7 @@
                     <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Favorie</font></font></th>
                     <th scope="col" class="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Edition</font></font></th>
                     <th scope="col" class="center">Suppresion</th>
+                    <th scope="col" class="center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">details</font></font></th>
                 </tr>
             </thead>
             <tbody>
@@ -74,10 +75,13 @@
                     {# <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ recipe.getDateCreation()|date('d/m/Y') }}</font></font></td>   #}
                     
                     <td>
-                        <a href="{{ path('recipe.update', {'id' : recipe.id}) }}" class="btn btn-secondary">Editer</a>
+                        <a href="{{ path('recipe.update', {'id' : recipe.id}) }}" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
                     </td>
                     <td>
-                        <a href="{{ path('recipe.delete', {'id' : recipe.id}) }}" class="btn btn-primary">Supprimer</a>
+                        <a href="{{ path('recipe.delete', {'id' : recipe.id}) }}" class="btn btn-primary"><i class="bi bi-trash3-fill"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ path('recipe.show', {'id' : recipe.id}) }}" class="btn btn-primary"><i class="bi bi-three-dots"></i></a>
                     </td>
                 </tr>
             {% endfor %}  

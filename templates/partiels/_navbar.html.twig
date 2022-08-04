@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('home.index')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Accueil</font></font></a>
+    <a class="navbar-brand" href="{{ path('home.index')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><i class="bi bi-house"></i> Accueil</font></font></a>
     <div class="collapse navbar-collapse" id="navbarColor02">
       <ul class="navbar-nav me-auto">
        {% if app.user %}
           <li class="nav-item">
-          <a class="nav-link active" href="{{ path('ingredient.list') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ingredients
+          <a class="nav-link active" href="{{ path('ingredient.list') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><i class="bi bi-list-ul"></i> Ingredients
           </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{{ path('recipe.list') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Recettes
+            <a class="nav-link active" href="{{ path('recipe.list') }}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><i class="bi bi-list-ul"></i> Recettes
             </a>
           </li> 
        {% endif %}  
@@ -17,7 +17,7 @@
       <div class="d-flex">
         <ul class="navbar-nav me-5">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ (app.user is same as(null)) ?  "Connexion" : app.user.Nom}}</a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i> {{ (app.user is same as(null)) ?  "Connexion" : app.user.Nom}}</a>
             <div class="dropdown-menu">
               {% if app.user %}
                 <a class="dropdown-item" href="{{ path('user.update' , {'id': app.user.id})}}">Modifier mes informatios</a>

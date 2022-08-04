@@ -52,6 +52,9 @@
         <p>Difficulté : {{ (recipe.difficulty is same as(null))? 'Non rensegné' : recipe.difficulty ~ '/5'}}</p>
         <p>Prix (en $) : {{(recipe.prix is same as(null))? 'Non rensegné' : recipe.prix}}</p>
         <div><p>{{ recipe.description|raw }}</p></div>
+        <div class="recipe__image">
+            <img style="max-width: 500px" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt="">
+        </div>
         <h4 class="mt-4"> Ingrédient </h4>
         {% for ingredient in recipe.ingredients %}
             <span class="badge bg-dark">{{ ingredient.nom }}</span>

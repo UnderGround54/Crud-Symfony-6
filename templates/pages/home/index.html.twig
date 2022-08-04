@@ -12,9 +12,9 @@
     <h1><i class="fa-light fa-house-user"></i> Bienvenue sur la dashboard</h1>
     <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui tempore doloribus, recusandae quo eaque laudantium, ut maxime voluptate dolore repudiandae porro necessitatibus ea soluta temporibus aliquam doloremque nobis laboriosam!</p>
     {% if app.user %}
-        <a href="{{ path('login.deconnexion') }}" class="btn btn-primary">Se deconnecter</a>
+        <a href="{{ path('login.deconnexion') }}" class="btn btn-primary"><i class="bi bi-door-open"></i> Se deconnecter</a>
     {% else %}
-        <a href="{{ path('login.inscription') }}" class="btn btn-primary">S'inscrir</a>
+        <a href="{{ path('login.inscription') }}" class="btn btn-primary"><i class="bi bi-person-workspace"></i> S'inscrir</a>
     {% endif %}
 
     <h4><i class="fa-light fa-pot-food"></i>Les trois dernière recette de la communauté </h4>
