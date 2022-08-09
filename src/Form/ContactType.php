@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactType extends AbstractType
@@ -82,6 +84,9 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Envoyer'
             ])
+            ->add('captcha', Recaptcha3Type::class, [
+            'action_name' => 'contact',
+        ])
         ;
     }
 
