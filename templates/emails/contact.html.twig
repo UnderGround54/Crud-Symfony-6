@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Recettes | Contact {% endblock %}
+
+{% block body %}
+
+<div class="container mt-4 mb-4">
+    <h1>Demande de {{ contact.Nom }}</h1>
+    <p>Email : {{ contact.email }}</p>
+    <p>Sujet : {{ contact.subject }}</p>
+    <p>Message : {{ contact.message|raw }}</p>
+</div>
+{% endblock %}
