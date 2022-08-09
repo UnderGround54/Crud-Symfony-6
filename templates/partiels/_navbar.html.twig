@@ -17,6 +17,7 @@
       </ul>
       <div class="d-flex">
         <ul class="navbar-nav me-5">
+        <a class="navbar-brand" href="{{ path('contact')}}"> Contact </a>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person-circle"></i> {{ (app.user is same as(null)) ?  "Connexion" : app.user.Nom}}</a>
             <div class="dropdown-menu">
