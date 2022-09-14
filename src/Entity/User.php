@@ -47,6 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Assert\NotBlank()]
+    #[Assert\Length(min: 8, minMessage:"Votre mot de passe doit être 8 caractéres")]
     private ?string $password = 'password';
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

@@ -43,7 +43,7 @@ class ContactController extends AbstractController
             //email
             $mailService->SendEmail(
                 $contact->getEmail(),
-                'admin@recette.com',
+                'admin@pross.com',
                 $contact->getSubject(),
                 'emails/contact.html.twig',
                 ['contact' => $contact],   
